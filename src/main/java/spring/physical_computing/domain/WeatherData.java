@@ -6,6 +6,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 @Entity
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -19,4 +22,7 @@ public class WeatherData {
     
     private String temperature;
     private String humidity;
+    
+    private LocalDate date;
+    private LocalTime time;
 }
