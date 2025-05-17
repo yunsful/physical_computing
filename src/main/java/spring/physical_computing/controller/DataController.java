@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import spring.physical_computing.controller.dto.DataResponse;
 import spring.physical_computing.controller.dto.WeatherRequest;
 import spring.physical_computing.domain.WeatherData;
 import spring.physical_computing.service.DataService;
@@ -15,18 +16,64 @@ import spring.physical_computing.service.DataService;
 public class DataController {
     
     private final DataService dataService;
+    private Boolean controlWindowOpen = false;
+    private Boolean controlWindowClosed = false;
+    private Boolean temperatureToggling = true;
+    private Boolean humidityToggling = true;
     
     @GetMapping("/home")
     public String getLatestData(Model model) {
         WeatherData latest = dataService.getLatest();
         model.addAttribute("weather", latest);
+        model.addAttribute("temperatureToggling", temperatureToggling);
+        model.addAttribute("humidityToggling", humidityToggling);
         return "home"; // resources/templates/home.html
     }
     
     @ResponseBody
     @PostMapping("/home")
-    public String postData(@RequestBody WeatherRequest data) {
+    public DataResponse postData(@RequestBody WeatherRequest data) {
         dataService.save(data);
-        return "OK";
+        DataResponse response = DataResponse.builder()
+                .controlWindowOpen(controlWindowOpen)
+                .controlWindowClosed(controlWindowClosed)
+                .temperatureToggling(temperatureToggling)
+                .humidityToggling(humidityToggling)
+                .build();
+        
+        if (controlWindowOpen) {
+            controlWindowOpen = false;
+        }
+        if (controlWindowClosed) {
+            controlWindowClosed = false;
+        }
+        
+        return response;
+    }
+    
+    @PostMapping("/tempature")
+    public String toggleTemperature(Model model) {
+        temperatureToggling = !temperatureToggling;
+        model.addAttribute("toggle", temperatureToggling);
+        return "redirect:/home";
+    }
+    
+    @PostMapping("/humidity")
+    public String toggleHumidity(Model model) {
+        humidityToggling = !humidityToggling;
+        model.addAttribute("toggle", humidityToggling);
+        return "redirect:/home";
+    }
+    
+    @PostMapping("/open")
+    public String controlWindowOpen() {
+        controlWindowOpen = true;
+        return "redirect:/home";
+    }
+    
+    @PostMapping("/close")
+    public String controlWindowClose() {
+        controlWindowClosed = true;
+        return "redirect:/home";
     }
 }
