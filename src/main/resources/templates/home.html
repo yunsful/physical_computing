@@ -33,7 +33,7 @@
         </li>
     </ul>
     <div class="mt-4 d-flex justify-content-center gap-3">
-        <form method="post" action="/tempature">
+        <form method="post" action="/temperature">
             <button type="submit" class="btn btn-outline-primary btn-sm" style="min-width: 136px;">
                 온도 기능: <span th:text="${temperatureToggling} ? 'ON' : 'OFF'">ON</span>
             </button>
@@ -41,6 +41,11 @@
         <form method="post" action="/humidity">
             <button type="submit" class="btn btn-outline-success btn-sm" style="min-width: 136px;">
                 습도 기능: <span th:text="${humidityToggling} ? 'ON' : 'OFF'">ON</span>
+            </button>
+        </form>
+        <form method="post" action="/sound">
+            <button type="submit" class="btn btn-outline-secondary btn-sm" style="min-width: 136px;">
+                소리 기능: <span th:text="${soundToggling} ? 'ON' : 'OFF'">ON</span>
             </button>
         </form>
     </div>

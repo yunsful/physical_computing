@@ -54,7 +54,7 @@ public class DataController {
         return response;
     }
     
-    @PostMapping("/tempature")
+    @PostMapping("/temperature")
     public String toggleTemperature(Model model) {
         temperatureToggling = !temperatureToggling;
         model.addAttribute("toggle", temperatureToggling);
