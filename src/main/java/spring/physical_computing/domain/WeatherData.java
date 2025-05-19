@@ -22,6 +22,7 @@ public class WeatherData {
     
     private String temperature;
     private String humidity;
+    private String sound;
     
     private LocalDate date;
     private LocalTime time;

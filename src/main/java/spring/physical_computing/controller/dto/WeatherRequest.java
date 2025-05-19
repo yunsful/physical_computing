@@ -12,4 +12,5 @@ import lombok.Setter;
 public class WeatherRequest {
     private String temperature;
     private String humidity;
+    private String sound;
 }

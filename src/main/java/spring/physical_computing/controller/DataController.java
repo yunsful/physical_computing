@@ -20,6 +20,7 @@ public class DataController {
     private Boolean controlWindowClosed = false;
     private Boolean temperatureToggling = true;
     private Boolean humidityToggling = true;
+    private Boolean soundToggling = true;
     
     @GetMapping("/home")
     public String getLatestData(Model model) {
@@ -27,6 +28,7 @@ public class DataController {
         model.addAttribute("weather", latest);
         model.addAttribute("temperatureToggling", temperatureToggling);
         model.addAttribute("humidityToggling", humidityToggling);
+        model.addAttribute("soundToggling", soundToggling);
         return "home"; // resources/templates/home.html
     }
     
@@ -39,6 +41,7 @@ public class DataController {
                 .controlWindowClosed(controlWindowClosed)
                 .temperatureToggling(temperatureToggling)
                 .humidityToggling(humidityToggling)
+                .soundToggling(soundToggling)
                 .build();
         
         if (controlWindowOpen) {
@@ -62,6 +65,13 @@ public class DataController {
     public String toggleHumidity(Model model) {
         humidityToggling = !humidityToggling;
         model.addAttribute("toggle", humidityToggling);
+        return "redirect:/home";
+    }
+    
+    @PostMapping("/sound")
+    public String toggleSound(Model model) {
+        soundToggling = !soundToggling;
+        model.addAttribute("toggle", soundToggling);
         return "redirect:/home";
     }
     

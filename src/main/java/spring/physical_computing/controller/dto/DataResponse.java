@@ -12,5 +12,6 @@ public class DataResponse {
     private Boolean controlWindowClosed;
     private Boolean temperatureToggling;
     private Boolean humidityToggling;
+    private Boolean soundToggling;
     
 }

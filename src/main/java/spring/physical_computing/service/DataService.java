@@ -26,10 +26,11 @@ public class DataService {
                 .time(LocalTime.now())
                 .temperature(request.getTemperature())
                 .humidity(request.getHumidity())
+                .sound(request.getSound())
                 .build();
         
         dataRepository.save(data);
-        log.info("temp={} hum={}", data.getTemperature(), data.getHumidity());
+        log.info("temp={} hum={} sound={}", data.getTemperature(), data.getHumidity(), data.getSound());
     }
     
     public WeatherData getLatest() {
